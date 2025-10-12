@@ -11,6 +11,26 @@ java {
     sourceCompatibility = '17'
 }
 
+// 소스 세트 명시적 설정
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
