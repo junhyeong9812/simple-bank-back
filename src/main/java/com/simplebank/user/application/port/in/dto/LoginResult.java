@@ -1,11 +1,11 @@
-package com.simplebank.user.adapter.in.web.dto;
+package com.simplebank.user.application.port.in.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class LoginResponse {
-    private final long userId;
+public class LoginResult {
+    private final Long userId;
     private final String username;
 }

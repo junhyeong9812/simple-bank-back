@@ -1,12 +1,25 @@
 package com.simplebank.user.adapter.in.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simplebank.user.adapter.in.web.dto.LoginRequest;
+import com.simplebank.user.application.port.in.LoginUseCase;
+import com.simplebank.user.application.port.in.dto.LoginCommand;
+import com.simplebank.user.application.port.in.dto.LoginResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 
 
 @WebMvcTest(UserController.class)
@@ -19,7 +32,7 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
+    @MockBean
     private LoginUseCase loginUseCase;
 
     @Test
@@ -29,14 +42,15 @@ class UserControllerTest {
         LoginRequest request = new LoginRequest("userId","userPassword");
         LoginResult result = new LoginResult(1L, "userId");
 
-        when(loginUseCase.excute(any(LoginCommand.class)))
+        when(loginUseCase.execute(any(LoginCommand.class)))
                 .thenReturn(result);
 
         //when& then
-        mockMvc.perform(post("/api/users/login"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
-                .andExpect(status().isOk)
+        mockMvc.perform(
+                post("/api/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId").value(1L))
                 .andExpect(jsonPath("$.username").value("userId"));
     }
