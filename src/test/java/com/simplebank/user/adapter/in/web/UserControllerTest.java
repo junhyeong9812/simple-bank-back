@@ -5,6 +5,7 @@ import com.simplebank.user.adapter.in.web.dto.LoginRequest;
 import com.simplebank.user.application.port.in.LoginUseCase;
 import com.simplebank.user.application.port.in.dto.LoginCommand;
 import com.simplebank.user.application.port.in.dto.LoginResult;
+import com.simplebank.user.domain.exception.InvalidPasswordException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
