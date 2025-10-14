@@ -55,4 +55,19 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.username").value("userId"));
     }
 
+    @Test
+    @DisplayName("POST /api/users/login - 잘못된 비밀번호")
+    void login_fail_invalid_password() throws Exception {
+        //Given
+        LoginRequest request = new LoginRequest("userId","wrongPassword");
+
+        when(loginUseCase.execute(any(LoginCommand.class)))
+                .thenThrow(new InvalidPasswordException());
+
+        //When&Then
+        mockMvc.perform(post("/api/users/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+    }
 }
