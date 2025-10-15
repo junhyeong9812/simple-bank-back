@@ -6,6 +6,7 @@ import com.simplebank.user.application.port.in.LoginUseCase;
 import com.simplebank.user.application.port.in.dto.LoginCommand;
 import com.simplebank.user.application.port.in.dto.LoginResult;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
+import org.apache.juli.logging.Log;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,21 @@ class UserControllerTest {
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    @DisplayName("POST /api/users/login - 존재하지 않는 사용자")
+    void login_fail_user_not_found() throws Exception {
+        //given
+        LoginRequest request = new LoginRequest("nonexistent", "password123");
+
+        when(loginUseCase.execute(any(LoginCommand.class)))
+                .thenThrow(new UserNotFoundException("nonexistent"));
+
+        mockMvc.perform(post("/api/users/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound());
+
+    }
+
 }
