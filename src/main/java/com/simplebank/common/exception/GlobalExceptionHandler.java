@@ -1,5 +1,6 @@
 package com.simplebank.common.exception;
 
+import com.simplebank.user.domain.exception.BlockedUserException;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -20,5 +21,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e){
         ErrorResponse error = new ErrorResponse("USER_NOT_FOUND", e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(BlockedUserException.class)
+    public ResponseEntity<ErrorResponse> handleBlockedUserException(BlockedUserException e) {
+        ErrorResponse error = new ErrorResponse("BLOCKED_USER", e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }

@@ -5,6 +5,7 @@ import com.simplebank.user.adapter.in.web.dto.LoginRequest;
 import com.simplebank.user.application.port.in.LoginUseCase;
 import com.simplebank.user.application.port.in.dto.LoginCommand;
 import com.simplebank.user.application.port.in.dto.LoginResult;
+import com.simplebank.user.domain.exception.BlockedUserException;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
 import org.apache.juli.logging.Log;
@@ -88,6 +89,22 @@ class UserControllerTest {
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound());
 
+    }
+
+    @Test
+    @DisplayName("POST /api/users/login - 차단된 사용자")
+    void login_fail_blocked_user() throws Exception {
+        //Given
+        LoginRequest request = new LoginRequest("blockedUser", "password123");
+
+        when(loginUseCase.execute(any(LoginCommand.class)))
+                .thenThrow(new BlockedUserException("blockedUser"));
+
+        //when
+        mockMvc.perform(post("/api/users/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
     }
 
 }
