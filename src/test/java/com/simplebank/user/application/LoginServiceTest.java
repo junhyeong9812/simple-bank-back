@@ -5,6 +5,7 @@ import com.simplebank.user.application.port.in.dto.LoginResult;
 import com.simplebank.user.application.port.out.LoadUserPort;
 import com.simplebank.user.domain.User;
 import com.simplebank.user.domain.UserStatus;
+import com.simplebank.user.domain.exception.BlockedUserException;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
 import org.assertj.core.api.Assertions;
@@ -101,4 +102,27 @@ class LoginServiceTest {
                 .isInstanceOf(InvalidPasswordException.class);
     }
 
+    @Test
+    @DisplayName("차단된 사용자 로그인 실패")
+    void login_fail_blocked_user() {
+        //Given
+        LoginCommand command = new LoginCommand("blockedUser", "paswword123");
+
+        User user = User.builder()
+                .id(1L)
+                .username("blockedUser")
+                .password("encodedPassword")
+                .status(UserStatus.BLOCKED)
+                .build();
+
+        when(loadUserPort.loadByUsername("blockedUser"))
+                .thenReturn(Optional.of(user));
+        when(passwordEncoder.matches("password123","encodedPassword"))
+                .thenReturn(true);
+
+        // When & Then
+        assertThatThrownBy(() -> loginService.execute(command))
+                .isInstanceOf(BlockedUserException.class)
+                .hasMessageContaining("blockedUser");
+    }
 }
