@@ -5,6 +5,7 @@ import com.simplebank.user.application.port.in.dto.LoginResult;
 import com.simplebank.user.application.port.out.LoadUserPort;
 import com.simplebank.user.domain.User;
 import com.simplebank.user.domain.UserStatus;
+import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -77,6 +78,27 @@ class LoginServiceTest {
                 .hasMessageContaining("nonexistent");
     }
 
-    
+    @Test
+    @DisplayName("잘못된 비밀번호로 로그인 실패")
+    void login_fail_invalid_password() {
+        //Given
+        LoginCommand command = new LoginCommand("user1", "wrongPassword");
+
+        User user = User.builder()
+                .id(1L)
+                .username("user1")
+                .password("encodedPassword")
+                .status(UserStatus.ACTIVE)
+                .build();
+
+        when(loadUserPort.loadByUsername("user1"))
+                .thenReturn(Optional.of(user));
+        when(passwordEncoder.matches("wrongPassword","encodedPassword"))
+                .thenReturn(false);
+
+        //when & then
+        assertThatThrownBy(() -> loginService.execute(command))
+                .isInstanceOf(InvalidPasswordException.class);
+    }
 
 }
