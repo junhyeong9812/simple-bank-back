@@ -5,6 +5,7 @@ import com.simplebank.user.application.port.in.dto.LoginResult;
 import com.simplebank.user.application.port.out.LoadUserPort;
 import com.simplebank.user.domain.User;
 import com.simplebank.user.domain.UserStatus;
+import com.simplebank.user.domain.exception.UserNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,22 @@ class LoginServiceTest {
         assertThat(result.getUsername()).isEqualTo("user1");
         verify(loadUserPort).loadByUsername("user1");
     }
+
+    @Test
+    @DisplayName("존재하지 않는 사용자명으로 로그인 실패")
+    void login_fail_user_not_found(){
+        //Given
+        LoginCommand command = new LoginCommand("nonexistent","pasword123");
+
+        when(loadUserPort.loadByUsername("nonexistent"))
+                .thenReturn(Optional.empty());
+
+        //When & Then
+        assertThatThrownBy(() -> loginService.execute(command))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("nonexistent");
+    }
+
+    
 
 }
