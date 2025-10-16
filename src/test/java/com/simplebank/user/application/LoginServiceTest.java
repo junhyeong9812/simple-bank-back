@@ -106,7 +106,7 @@ class LoginServiceTest {
     @DisplayName("차단된 사용자 로그인 실패")
     void login_fail_blocked_user() {
         //Given
-        LoginCommand command = new LoginCommand("blockedUser", "paswword123");
+        LoginCommand command = new LoginCommand("blockedUser", "password123");
 
         User user = User.builder()
                 .id(1L)

@@ -5,6 +5,7 @@ import com.simplebank.user.application.port.in.dto.LoginCommand;
 import com.simplebank.user.application.port.in.dto.LoginResult;
 import com.simplebank.user.application.port.out.LoadUserPort;
 import com.simplebank.user.domain.User;
+import com.simplebank.user.domain.exception.BlockedUserException;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,12 @@ public class LoginService implements LoginUseCase {
             throw new InvalidPasswordException();
         }
 
-        // 3. 결과 반환
+        // 3. 사용자 상태 확인
+        if(user.isBlocked()){
+            throw new BlockedUserException(user.getUsername());
+        }
+
+        // 4. 결과 반환
         return new LoginResult(user.getId(), user.getUsername());
     }
 }
