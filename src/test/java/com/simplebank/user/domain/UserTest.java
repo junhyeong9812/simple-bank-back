@@ -40,6 +40,17 @@ class UserTest {
         assertThat(user.isActive()).isTrue();
     }
 
+    @Test
+    @DisplayName("비활성 상태 사용자 확인")
+    void isActive_when_status_inacvite() {
+        //Given
+        User user = User.builder()
+                .status(UserStatus.INACTIVE)
+                .build();
+
+        //When & Then
+        assertThat(user.isActive()).isFalse();
+    }
 
 
 }
