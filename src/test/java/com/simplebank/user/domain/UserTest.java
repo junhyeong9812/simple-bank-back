@@ -28,4 +28,18 @@ class UserTest {
         assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
+    @Test
+    @DisplayName("활성 상태 사용자 확인")
+    void isActive_when_status_active() {
+        //Given
+        User user = User.builder()
+                .status(UserStatus.ACTIVE)
+                .build();
+
+        //When & Then
+        assertThat(user.isActive()).isTrue();
+    }
+
+
+
 }
