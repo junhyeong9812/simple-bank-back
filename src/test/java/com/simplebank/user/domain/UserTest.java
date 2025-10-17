@@ -51,6 +51,19 @@ class UserTest {
         //When & Then
         assertThat(user.isActive()).isFalse();
     }
+    
+    @Test
+    @DisplayName("차단된 사용자 확인")
+    void isBlocked_when_status_blocked() {
+        //Given
+        User user = User.builder()
+                .status(UserStatus.BLOCKED)
+                .build();
+
+        //When & Then
+        assertThat(user.isBlocked()).isTrue();
+        assertThat(user.isActive()).isFalse();
+    }
 
 
 }
