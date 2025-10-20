@@ -37,5 +37,25 @@ public class UserJpaEntity {
     @Column(nullable = false)
     private UserStatus status;
 
+    //Domain -> JPA Entity
+    public static UserJpaEntity from(User user) {
+        return UserJpaEntity.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .status(user.getStatus())
+                .build();
+    }
+
+    //JPA Entity -> Domain
+    public User toDomain(){
+        return User.builder()
+                .id(this.id)
+                .username(this.username)
+                .password(this.password)
+                .status(this.status)
+                .build();
+    }
+
 
 }
