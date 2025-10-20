@@ -36,6 +36,7 @@ class UserRepositoryAdapterTest {
                 .password("encodedPassword")
                 .status(UserStatus.ACTIVE)
                 .build();
+        jpaRepository.save(entity);
 
         //When
         Optional<User> result = adapter.loadByUsername("user1");

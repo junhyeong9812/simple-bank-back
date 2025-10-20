@@ -14,11 +14,14 @@ public class UserRepositoryAdapter implements LoadUserPort {
 
     @Override
     public Optional<User> loadByUsername(String username) {
-        return Optional.empty();
+        return jpaRepository.findByUsername(username)
+                .map(UserJpaEntity::toDomain);
     }
 
     @Override
     public Optional<User> loadById(Long userId) {
-        return Optional.empty();
+        return jpaRepository.findById(userId)
+                .map(UserJpaEntity::toDomain);
     }
+
 }
