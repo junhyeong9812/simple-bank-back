@@ -1,4 +1,24 @@
 package com.simplebank.user.adapter.out.persistence;
 
-public class UserRepositoryAdapter {
+import com.simplebank.user.application.port.out.LoadUserPort;
+import com.simplebank.user.domain.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+@RequiredArgsConstructor
+public class UserRepositoryAdapter implements LoadUserPort {
+    private final UserJpaRepository jpaRepository;
+
+    @Override
+    public Optional<User> loadByUsername(String username) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> loadById(Long userId) {
+        return Optional.empty();
+    }
 }
