@@ -48,4 +48,15 @@ class UserRepositoryAdapterTest {
         assertThat(result.get().getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
+    @Test
+    @DisplayName("존재하지 않는 사용자명으로 조회 시 빈 Optional 반환")
+    void loadByUsername_not_found() {
+        //When
+        Optional<User> result = adapter.loadByUsername("nonexistent");
+
+        //then
+        assertThat(result).isEmpty();
+
+    }
+
 }
