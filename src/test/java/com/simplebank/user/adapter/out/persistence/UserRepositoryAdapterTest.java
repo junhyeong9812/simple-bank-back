@@ -59,4 +59,24 @@ class UserRepositoryAdapterTest {
 
     }
 
+    @Test
+    @DisplayName("ID로 사용자 조회 성공")
+    void loadById_success() {
+        //Given
+        UserJpaEntity entity = UserJpaEntity.builder()
+                .username("user1")
+                .password("encodedPassword")
+                .status(UserStatus.ACTIVE)
+                .build();
+        UserJpaEntity saved = jpaRepository.save(entity);
+
+        //When
+        Optional<User> result = adapter.loadById(saved.getId());
+
+        //Then
+        assertThat(result).isPresent();
+        assertThat(result.get().getId()).isEqualTo(saved.getId());
+        assertThat(result.get().getUsername()).isEqualTo("user1");
+    }
+
 }
