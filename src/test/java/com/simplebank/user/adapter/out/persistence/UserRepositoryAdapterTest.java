@@ -79,4 +79,30 @@ class UserRepositoryAdapterTest {
         assertThat(result.get().getUsername()).isEqualTo("user1");
     }
 
+    @Test
+    @DisplayName("사용자 저장 성공")
+    void save_user() {
+        //Given
+        User user = User.builder()
+                .username("newUser")
+                .password("password123")
+                .status(UserStatus.ACTIVE)
+                .build();
+
+        //When
+        User saved = adapter.save(user);
+
+        //Then
+        assertThat(saved.getId()).isNotNull();
+        assertThat(saved.getUsername()).isEqualTo("newUser");
+        assertThat(saved.getPassword()).isEqualTo("password123");
+        assertThat(saved.getStatus()).isEqualTo(UserStatus.ACTIVE);
+        
+        // DB 확인
+        Optional<UserJpaEntity> found = jpaRepository.findByUsername("newUser");
+        assertThat(found).isPresent();
+        assertThat(found.get().getUsername()).isEqualTo("newUser");
+
+    }
+
 }
