@@ -24,4 +24,11 @@ public class UserRepositoryAdapter implements LoadUserPort {
                 .map(UserJpaEntity::toDomain);
     }
 
+    @Override
+    public User save(User user) {
+        UserJpaEntity entity = UserJpaEntity.from(user);
+        UserJpaEntity saved = jpaRepository.save(entity);
+        return saved.toDomain();
+    }
+
 }

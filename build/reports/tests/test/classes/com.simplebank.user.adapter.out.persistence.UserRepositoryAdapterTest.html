@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserRepositoryAdapter 테스트</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserRepositoryAdapter 테스트</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.simplebank.user.adapter.out.persistence.html">com.simplebank.user.adapter.out.persistence</a> &gt; UserRepositoryAdapterTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.642s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">ID로 사용자 조회 성공</td>
+<td class="success">loadById_success()</td>
+<td class="success">0.642s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>13:10:57.240 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.simplebank.user.adapter.out.persistence.UserRepositoryAdapterTest]: UserRepositoryAdapterTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:10:57.385 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.simplebank.SimpleBankApplication for test class com.simplebank.user.adapter.out.persistence.UserRepositoryAdapterTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-10-21T13:10:57.820+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] c.s.u.a.o.p.UserRepositoryAdapterTest    : Starting UserRepositoryAdapterTest using Java 21.0.7 with PID 33920 (started by pickj in D:\pintech\simple-bank-back)
+2025-10-21T13:10:57.821+09:00 DEBUG 33920 --- [simple-bank-back] [    Test worker] c.s.u.a.o.p.UserRepositoryAdapterTest    : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-10-21T13:10:57.822+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] c.s.u.a.o.p.UserRepositoryAdapterTest    : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-10-21T13:10:58.207+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-21T13:10:58.278+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 1 JPA repository interface.
+2025-10-21T13:10:58.319+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2025-10-21T13:10:58.472+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:c9dc62f5-6291-46d7-835e-9471b32e22ec;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-10-21T13:10:58.720+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-21T13:10:58.790+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-10-21T13:10:58.828+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-21T13:10:59.051+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-21T13:10:59.771+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-21T13:10:59.785+09:00 DEBUG 33920 --- [simple-bank-back] [    Test worker] org.hibernate.SQL                        : 
+    drop table if exists users cascade 
+Hibernate: 
+    drop table if exists users cascade 
+2025-10-21T13:10:59.794+09:00 DEBUG 33920 --- [simple-bank-back] [    Test worker] org.hibernate.SQL                        : 
+    create table users (
+        id bigint generated by default as identity,
+        password varchar(255) not null,
+        status varchar(255) not null check (status in ('ACTIVE','INACTIVE','BLOCKED')),
+        username varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        id bigint generated by default as identity,
+        password varchar(255) not null,
+        status varchar(255) not null check (status in ('ACTIVE','INACTIVE','BLOCKED')),
+        username varchar(255) not null unique,
+        primary key (id)
+    )
+2025-10-21T13:10:59.810+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-21T13:11:00.283+09:00  INFO 33920 --- [simple-bank-back] [    Test worker] c.s.u.a.o.p.UserRepositoryAdapterTest    : Started UserRepositoryAdapterTest in 2.817 seconds (process running for 4.048)
+2025-10-21T13:11:00.850+09:00 DEBUG 33920 --- [simple-bank-back] [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        users
+        (password, status, username, id) 
+    values
+        (?, ?, ?, default)
+Hibernate: 
+    insert 
+    into
+        users
+        (password, status, username, id) 
+    values
+        (?, ?, ?, default)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>WARNING: A Java agent has been loaded dynamically (C:\Users\pickj\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.10\90ed94ac044ea8953b224304c762316e91fd6b31\byte-buddy-agent-1.14.10.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.5</a> at 2025. 10. 21. 오후 1:11:01</p>
+</div>
+</div>
+</body>
+</html>
