@@ -2,9 +2,11 @@ package com.simplebank.user.adapter.in.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simplebank.user.adapter.in.web.dto.LoginRequest;
+import com.simplebank.user.application.port.in.GetUserInfoUseCase;
 import com.simplebank.user.application.port.in.LoginUseCase;
 import com.simplebank.user.application.port.in.dto.LoginCommand;
 import com.simplebank.user.application.port.in.dto.LoginResult;
+import com.simplebank.user.application.port.in.dto.UserInfo;
 import com.simplebank.user.domain.exception.BlockedUserException;
 import com.simplebank.user.domain.exception.InvalidPasswordException;
 import com.simplebank.user.domain.exception.UserNotFoundException;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,6 +41,9 @@ class UserControllerTest {
 
     @MockBean
     private LoginUseCase loginUseCase;
+
+    @MockBean
+    private GetUserInfoUseCase getUserInfoUseCase;
 
     @Test
     @DisplayName("POST /api/users/login - 로그인 성공")
@@ -105,6 +111,24 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
+    }
+    
+    @Test
+    @DisplayName("GET /api/users/{userId} - 사용자 정보 조회 성공")
+    void getUserInfo_success() throws Exception {
+        //Given
+        Long userId = 1L;
+        UserInfo userInfo = new UserInfo(1L, "user1", "ACTIVE");
+
+        when(getUserInfoUseCase.execute(userId))
+                .thenReturn(userInfo);
+
+        //When & Then
+        mockMvc.perform(get("/api/users/{userId}", userId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId").value(1L))
+                .andExpect(jsonPath("$.username").value("user1"))
+                .andExpect(jsonPath("$.status").value("ACTIVE"));
     }
 
 }
