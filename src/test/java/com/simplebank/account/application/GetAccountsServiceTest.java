@@ -69,4 +69,22 @@ class GetAccountsServiceTest {
         verify(loadAccountPort).loadByUserId(userId);
 
     }
+
+    @Test
+    @DisplayName("계좌가 없는 사용자 조회 시 빈 리스트 반환")
+    void getAccounts_empty() {
+        //Given
+        Long userId = 999L;
+        List<Account> emptyAccounts = List.of();
+
+        when(loadAccountPort.loadByUserId(userId))
+                .thenReturn(emptyAccounts);
+
+        //when
+        List<Account> result = getAccountsService.execute(userId);
+
+        //Then
+        assertThat(result).isEmpty();
+        verify(loadAccountPort).loadByUserId(userId);
+    }
 }
