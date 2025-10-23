@@ -81,7 +81,7 @@ class GetAccountsServiceTest {
                 .thenReturn(emptyAccounts);
 
         //when
-        List<Account> result = getAccountsService.execute(userId);
+        List<AccountInfo> result = getAccountsService.execute(userId);
 
         //Then
         assertThat(result).isEmpty();
