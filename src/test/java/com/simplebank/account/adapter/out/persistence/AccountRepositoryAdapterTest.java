@@ -29,4 +29,27 @@ class AccountRepositoryAdapterTest {
         adapter = new AccountRepositoryAdapter(jpaRepository);
     }
 
+    @Test
+    @DisplayName("")
+    void loadById_success() {
+        //Given
+        AccountJpaEntity entity = jpaRepository.builder()
+                .userId(1L)
+                .accountNumber("123456789")
+                .balance(new BigDecimal("10000.00"))
+                .status(AccountStatus.ACTIVE)
+                .build();
+        AccountJpaEntity saved = jpaRepository.save(entity);
+
+        //When
+        Optional<Account> result = adapter.loadById(saved.getId());
+
+        //Then
+        assertThat(result).isPresent();
+        assertThat(result.get().getId()).isEqualTo(saved.getId());
+        assertThat(result.get().getAccountNumber()).isEqualTo("123456789");
+        assertThat(result.get().getBalance().getAmount()).isEqualTo(new BigDecimal("10000.00"));
+        assertThat(result.get().getStatus()).isEqualTo(AccountStatus.ACTIVE);
+    }
+
 }
